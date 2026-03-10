@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Documentation — Mission #0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --lilac: #b19cd9;
+    --lilac-dim: #9575cd;
+    --lilac-pale: rgba(177,156,217,0.12);
+    --green: #00ff41;
+    --green-dim: rgba(0,255,65,0.15);
+    --bg: #0d0e14;
+    --bg2: #12131a;
+    --bg3: #1a1b26;
+    --text: #e8e0f0;
+    --text-muted: #7a6e8a;
+    --gold: #c9a84c;
+    --border: rgba(177,156,217,0.2);
+    --font-body: 'Cormorant Garamond', Georgia, serif;
+    --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    font-size: 1.1rem;
+    line-height: 1.75;
+    overflow-x: hidden;
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.6;
+  }
+
+  /* Scanline */
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--lilac), transparent);
+    animation: scanline 10s linear infinite;
+    opacity: 0.12;
+    pointer-events: none;
+    z-index: 9998;
+  }
+
+  @keyframes scanline {
+    0% { transform: translateY(-2px); }
+    100% { transform: translateY(100vh); }
+  }
+
+  /* ── LAYOUT ── */
+
+  .wrapper {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: 100vh;
+  }
+
+  /* ── NAV SIDEBAR ── */
+
+  nav {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    background: var(--bg2);
+    border-right: 1px solid var(--border);
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  nav::-webkit-scrollbar { width: 4px; }
+  nav::-webkit-scrollbar-track { background: transparent; }
+  nav::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .nav-logo {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--green);
+    text-shadow: 0 0 8px var(--green);
+    letter-spacing: 0.15em;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--green-dim);
+    padding-bottom: 1rem;
+    line-height: 1.5;
+  }
+
+  .nav-section {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: var(--green);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-top: 1.2rem;
+    margin-bottom: 0.4rem;
+    opacity: 0.7;
+  }
+
+  nav a {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 0.3rem 0.6rem;
+    border-left: 2px solid transparent;
+    border-radius: 0 3px 3px 0;
+    transition: all 0.2s;
+    letter-spacing: 0.03em;
+  }
+
+  nav a:hover {
+    color: var(--lilac);
+    border-left-color: var(--lilac);
+    background: var(--lilac-pale);
+  }
+
+  /* ── MAIN ── */
+
+  main {
+    max-width: 900px;
+    padding: 4rem 3rem 6rem;
+  }
+
+  /* ── HERO ── */
+
+  .hero {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  .hero-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--green);
+    text-shadow: 0 0 8px var(--green);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    line-height: 1.1;
+    color: var(--lilac);
+    text-shadow: 0 0 40px rgba(177,156,217,0.3);
+    margin-bottom: 0.8rem;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-sub {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    margin-bottom: 2rem;
+  }
+
+  .badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 2rem;
+  }
+
+  .badge {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 2px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .badge-green {
+    background: var(--green-dim);
+    border: 1px solid rgba(0,255,65,0.3);
+    color: var(--green);
+  }
+
+  .badge-lilac {
+    background: var(--lilac-pale);
+    border: 1px solid rgba(177,156,217,0.3);
+    color: var(--lilac);
+  }
+
+  .badge-gold {
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.3);
+    color: var(--gold);
+  }
+
+  .hero-intro {
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--text-muted);
+    line-height: 1.8;
+    max-width: 680px;
+    border-left: 2px solid var(--lilac-dim);
+    padding-left: 1.5rem;
+  }
+
+  /* ── SECTIONS ── */
+
+  section {
+    margin-bottom: 4rem;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  h2 {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 2rem;
+    color: var(--lilac);
+    letter-spacing: 0.02em;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  h2::before {
+    content: '';
+    display: inline-block;
+    width: 3px;
+    height: 1.6rem;
+    background: var(--lilac-dim);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  h3 {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--green);
+    text-shadow: 0 0 6px rgba(0,255,65,0.4);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin: 2rem 0 0.8rem;
+  }
+
+  h4 {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--lilac);
+    letter-spacing: 0.08em;
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  p {
+    margin-bottom: 1rem;
+    color: var(--text);
+  }
+
+  /* ── CODE ── */
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    background: var(--bg3);
+    color: var(--lilac);
+    padding: 0.15em 0.4em;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+  }
+
+  pre {
+    background: var(--bg3);
+    border: 1px solid var(--green-dim);
+    border-left: 3px solid var(--green);
+    border-radius: 6px;
+    padding: 1.4rem 1.6rem;
+    overflow-x: auto;
+    margin: 1.2rem 0 1.8rem;
+    position: relative;
+  }
+
+  pre code {
+    background: none;
+    border: none;
+    color: var(--green);
+    font-size: 0.82rem;
+    line-height: 1.7;
+    padding: 0;
+  }
+
+  /* ── TABLES ── */
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0 2rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+  }
+
+  thead tr {
+    background: var(--lilac-pale);
+    border-bottom: 1px solid var(--lilac-dim);
+  }
+
+  th {
+    text-align: left;
+    padding: 0.7rem 1rem;
+    color: var(--lilac);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 0.7rem;
+  }
+
+  td {
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    vertical-align: top;
+  }
+
+  tr:hover td {
+    background: var(--lilac-pale);
+  }
+
+  td:first-child {
+    color: var(--green);
+    white-space: nowrap;
+  }
+
+  /* ── CALLOUTS ── */
+
+  .callout {
+    padding: 1.2rem 1.5rem;
+    border-radius: 6px;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+  }
+
+  .callout-green {
+    background: var(--green-dim);
+    border-left: 3px solid var(--green);
+  }
+
+  .callout-lilac {
+    background: var(--lilac-pale);
+    border-left: 3px solid var(--lilac-dim);
+  }
+
+  .callout-gold {
+    background: rgba(201,168,76,0.08);
+    border-left: 3px solid var(--gold);
+    color: rgba(201,168,76,0.9);
+  }
+
+  .callout-label {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    opacity: 0.8;
+  }
+
+  /* ── DIAGRAM ── */
+
+  .diagram {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 1.5rem 0;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    line-height: 2;
+    overflow-x: auto;
+    color: var(--text-muted);
+  }
+
+  .diagram .node {
+    color: var(--lilac);
+  }
+
+  .diagram .arrow {
+    color: var(--green);
+  }
+
+  .diagram .label {
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    font-style: italic;
+  }
+
+  /* ── FILE LIST ── */
+
+  .file-list {
+    display: grid;
+    gap: 0.6rem;
+    margin: 1rem 0 1.8rem;
+  }
+
+  .file-entry {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 0.8rem 1.1rem;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    transition: border-color 0.2s;
+  }
+
+  .file-entry:hover {
+    border-color: var(--lilac-dim);
+  }
+
+  .file-entry .fname {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--green);
+    white-space: nowrap;
+    min-width: 160px;
+  }
+
+  .file-entry .fdesc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* ── KEYBOARD SHORTCUTS ── */
+
+  .shortcuts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 0.5rem;
+    margin: 1rem 0 1.8rem;
+  }
+
+  .shortcut {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.6rem 0.9rem;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 0.88rem;
+  }
+
+  kbd {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    background: var(--bg3);
+    border: 1px solid var(--lilac-dim);
+    border-bottom: 2px solid var(--lilac-dim);
+    color: var(--lilac);
+    padding: 0.2rem 0.45rem;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  /* ── COMPONENT ANATOMY ── */
+
+  .anatomy {
+    display: grid;
+    gap: 1rem;
+    margin: 1rem 0 2rem;
+  }
+
+  .anatomy-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 1.5rem;
+    padding: 1rem 1.2rem;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    align-items: start;
+  }
+
+  .anatomy-item .comp-id {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--gold);
+    font-weight: 500;
+  }
+
+  .anatomy-item .comp-role {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* ── DIVIDER ── */
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 3rem 0;
+  }
+
+  /* ── RESPONSIVE ── */
+
+  @media (max-width: 768px) {
+    .wrapper { grid-template-columns: 1fr; }
+    nav { position: static; height: auto; }
+    main { padding: 2rem 1.2rem 4rem; }
+    .anatomy-item { grid-template-columns: 1fr; }
+  }
+
+  /* ── TOC ACTIVE HIGHLIGHT ── */
+
+  .toc-active {
+    color: var(--lilac) !important;
+    border-left-color: var(--lilac) !important;
+    background: var(--lilac-pale) !important;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <!-- ══ SIDEBAR NAV ══ -->
+  <nav>
+    <div class="nav-logo">
+      ⟩ MISSION #0<br>
+      <span style="color:var(--lilac);opacity:0.6;">Documentation Technique</span><br>
+      <span style="opacity:0.4;">v1.0 · mars 2026</span>
+    </div>
+
+    <div class="nav-section">Vue d'ensemble</div>
+    <a href="#overview">Présentation</a>
+    <a href="#stack">Stack technique</a>
+    <a href="#architecture">Architecture</a>
+
+    <div class="nav-section">Interface</div>
+    <a href="#layout">Mise en page</a>
+    <a href="#toolbar">Barre d'outils</a>
+    <a href="#sidebar">Panneau fichiers</a>
+    <a href="#editor">Éditeur</a>
+    <a href="#preview">Aperçu</a>
+
+    <div class="nav-section">Fonctions</div>
+    <a href="#file-management">Gestion fichiers</a>
+    <a href="#shortcuts">Raccourcis clavier</a>
+    <a href="#export">Export</a>
+    <a href="#stats">Statistiques</a>
+
+    <div class="nav-section">Données</div>
+    <a href="#files-catalog">Catalogue .md</a>
+    <a href="#content">Contenu embarqué</a>
+
+    <div class="nav-section">Référence</div>
+    <a href="#css-vars">Variables CSS</a>
+    <a href="#api-js">API JavaScript</a>
+    <a href="#known-limits">Limites</a>
+  </nav>
+
+  <!-- ══ MAIN CONTENT ══ -->
+  <main>
+
+    <!-- HERO -->
+    <div class="hero" id="overview">
+      <div class="hero-label">⟩ DOCUMENTATION · OUAISFI.EU</div>
+      <h1>Mission #0</h1>
+      <div class="hero-sub">Éditeur Markdown in-browser · Single-file HTML · Civic tech tool</div>
+
+      <div class="badge-row">
+        <span class="badge badge-green">HTML5</span>
+        <span class="badge badge-green">Vanilla JS</span>
+        <span class="badge badge-lilac">Marked.js</span>
+        <span class="badge badge-lilac">Highlight.js</span>
+        <span class="badge badge-lilac">Mermaid.js</span>
+        <span class="badge badge-gold">ouaisfieu.github.io</span>
+      </div>
+
+      <p class="hero-intro">
+        Mission #0 est un éditeur Markdown entièrement autonome fonctionnant dans le navigateur.
+        Conçu pour l'écosystème ouaisfi.eu, il combine un arbre de fichiers, un éditeur live,
+        un aperçu en temps réel et des exports MD/HTML — le tout en un seul fichier HTML
+        déployable sans backend.
+      </p>
+    </div>
+
+    <!-- ══ STACK TECHNIQUE ══ -->
+    <section id="stack">
+      <h2>Stack technique</h2>
+
+      <p>L'application ne dépend d'aucun framework frontend. Elle repose sur trois bibliothèques
+      chargées via CDN local (fichiers <code>*.js.téléchargement</code> inclus dans le dossier d'assets) :</p>
+
+      <table>
+        <thead><tr><th>Bibliothèque</th><th>Rôle</th><th>Config notable</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>marked.min.js</td>
+            <td>Parsing Markdown → HTML</td>
+            <td><code>gfm: true</code>, <code>breaks: true</code>, <code>headerIds: true</code></td>
+          </tr>
+          <tr>
+            <td>highlight.min.js</td>
+            <td>Coloration syntaxique des blocs de code</td>
+            <td>Thème Tokyo Night Dark (<code>tokyo-night-dark.min.css</code>)</td>
+          </tr>
+          <tr>
+            <td>mermaid.min.js</td>
+            <td>Rendu de diagrammes depuis blocs <code>```mermaid</code></td>
+            <td>Thème custom lilac/vert terminal, <code>startOnLoad: true</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-green">
+        <div class="callout-label">⟩ Note de déploiement</div>
+        Les scripts sont référencés en chemins relatifs depuis <code>./Mission #0_files/</code>.
+        L'application fonctionne offline dès lors que ce dossier d'assets est présent à côté du fichier HTML.
+      </div>
+    </section>
+
+    <!-- ══ ARCHITECTURE ══ -->
+    <section id="architecture">
+      <h2>Architecture</h2>
+
+      <p>L'application est structurée en un unique fichier HTML avec trois zones distinctes :</p>
+
+      <div class="diagram">
+<span class="node">[ HTML + CSS ]</span>  →  Structure visuelle complète (inline, ~600 lignes)
+        │
+        ├─ <span class="node">[ &lt;body&gt; statique ]</span>  →  UI pré-rendue avec état initial (guide.md affiché)
+        │                       <span class="label">Le preview et l'arbre fichiers sont hydratés côté JS</span>
+        │
+        └─ <span class="node">[ &lt;script&gt; JS ]</span>   →  Logique applicative (~540 lignes)
+                                 <span class="label">Initialisation, gestion état, fetch, events, exports</span>
+
+<span class="arrow">Flux de données :</span>
+
+Fichiers .md (fetch async)
+  <span class="arrow">──→</span> <span class="node">files[]</span> (tableau en mémoire)
+        <span class="arrow">──→</span> <span class="node">updateFileTree()</span>  →  DOM sidebar
+        <span class="arrow">──→</span> <span class="node">openFile(index)</span>  →  editor.value
+                              <span class="arrow">──→</span> <span class="node">updatePreview()</span>  →  marked.parse()  →  preview.innerHTML
+                              <span class="arrow">──→</span> <span class="node">updateStats()</span>   →  compteurs DOM
+      </div>
+
+      <h3>État global</h3>
+      <p>L'application maintient trois variables globales :</p>
+
+      <table>
+        <thead><tr><th>Variable</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>files</td><td>Array&lt;FileObj&gt;</td><td>Collection de tous les fichiers chargés (RAM uniquement)</td></tr>
+          <tr><td>currentFile</td><td>FileObj | null</td><td>Référence au fichier actuellement ouvert dans l'éditeur</td></tr>
+          <tr><td>currentView</td><td>'split' | 'editor' | 'preview'</td><td>Mode d'affichage actif</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Structure d'un objet FileObj</h4>
+      <pre><code>{
+  name:        String,    // nom du fichier (ex: "guide.md")
+  content:     String,    // contenu Markdown brut
+  path:        String,    // chemin relatif (uniquement si fromFolder: true)
+  fromFolder:  Boolean,   // true = chargé via fetch, false = uploadé par l'utilisateur
+  modified:    Boolean    // true si modifications non sauvegardées
+}</code></pre>
+    </section>
+
+    <hr>
+
+    <!-- ══ LAYOUT ══ -->
+    <section id="layout">
+      <h2>Mise en page</h2>
+
+      <p>L'interface est divisée en trois zones principales organisées en grille CSS :</p>
+
+      <div class="anatomy">
+        <div class="anatomy-item">
+          <div class="comp-id">.container</div>
+          <div class="comp-role">Conteneur racine en <code>flex-direction: column</code>, occupe 100vh. Contient le header, la toolbar et le workspace.</div>
+        </div>
+        <div class="anatomy-item">
+          <div class="comp-id">header</div>
+          <div class="comp-role">Titre « MISSION #0 », sous-titre terminal vert, animation <code>glow-pulse</code> sur le h1. Fond verre dépoli (<code>backdrop-filter: blur</code>).</div>
+        </div>
+        <div class="anatomy-item">
+          <div class="comp-id">.toolbar</div>
+          <div class="comp-role">Barre d'actions horizontale avec boutons d'action, séparateurs et input de nom de fichier. Flex-wrap pour adaptation mobile.</div>
+        </div>
+        <div class="anatomy-item">
+          <div class="comp-id">.workspace</div>
+          <div class="comp-role">Grid <code>250px 1fr</code>. Contient la sidebar (.sidebar) et le conteneur éditeur (.editor-container).</div>
+        </div>
+        <div class="anatomy-item">
+          <div class="comp-id">.editor-container</div>
+          <div class="comp-role">Grid <code>1fr 1fr</code> par défaut (split). Passe à <code>1fr</code> en modes <code>editor-only</code> ou <code>preview-only</code>.</div>
+        </div>
+      </div>
+
+      <h3>Modes d'affichage</h3>
+      <p>Trois modes contrôlés via la fonction <code>setView(view)</code> :</p>
+
+      <table>
+        <thead><tr><th>Mode</th><th>Classe CSS</th><th>Panels visibles</th></tr></thead>
+        <tbody>
+          <tr><td>split</td><td>(défaut)</td><td>Éditeur + Aperçu côte à côte</td></tr>
+          <tr><td>editor</td><td>.editor-only</td><td>Éditeur seul (aperçu masqué)</td></tr>
+          <tr><td>preview</td><td>.preview-only</td><td>Aperçu seul (éditeur masqué)</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ══ TOOLBAR ══ -->
+    <section id="toolbar">
+      <h2>Barre d'outils</h2>
+
+      <p>La toolbar comporte les boutons d'action principaux :</p>
+
+      <table>
+        <thead><tr><th>Bouton</th><th>Icône</th><th>Fonction JS</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>Nouveau</td><td>📄</td><td><code>newFile()</code></td><td>Crée un fichier temporaire nommé <code>nouveau-{timestamp}.md</code></td></tr>
+          <tr><td>Sauvegarder</td><td>💾</td><td><code>saveToFolder()</code></td><td>Déclenche un téléchargement du fichier .md courant</td></tr>
+          <tr><td>Exporter MD</td><td>📥</td><td><code>exportMd()</code></td><td>Export brut du contenu Markdown</td></tr>
+          <tr><td>Exporter HTML</td><td>🌐</td><td><code>exportHtml()</code></td><td>Export HTML stylisé standalone (thème lilac/vert)</td></tr>
+          <tr><td>Refresh</td><td>🔄</td><td><code>refreshFolder()</code></td><td>Recharge les fichiers via <code>loadFolder()</code></td></tr>
+          <tr><td>Split</td><td>⚡</td><td><code>setView('split')</code></td><td>Mode vue partagée</td></tr>
+          <tr><td>Editor</td><td>✏️</td><td><code>setView('editor')</code></td><td>Mode éditeur seul</td></tr>
+          <tr><td>Preview</td><td>👁️</td><td><code>setView('preview')</code></td><td>Mode aperçu seul</td></tr>
+          <tr><td>App</td><td>📱</td><td>Lien externe</td><td>Lien vers <code>ouaisfieu.github.io/sky/mobile.html</code></td></tr>
+        </tbody>
+      </table>
+
+      <p>Un input texte <code>#filenameInput</code> permet de nommer le fichier avant export/sauvegarde.</p>
+    </section>
+
+    <!-- ══ SIDEBAR ══ -->
+    <section id="sidebar">
+      <h2>Panneau fichiers</h2>
+
+      <p>La sidebar gauche (fond vert terminal, <code>box-shadow: 0 0 30px rgba(0,255,65,0.2)</code>)
+      contient trois éléments fonctionnels :</p>
+
+      <h3>Zone d'upload</h3>
+      <p>Label <code>.upload-area</code> lié à un <code>&lt;input type="file" accept=".md,.markdown" multiple&gt;</code>.
+      Supporte le glisser-déposer (<em>drag &amp; drop</em>) via les événements <code>dragenter</code>,
+      <code>dragover</code>, <code>dragleave</code>, <code>drop</code>. Seuls les fichiers <code>.md</code>
+      et <code>.markdown</code> sont acceptés — les autres déclenchent un toast d'erreur.</p>
+
+      <h3>Arbre de fichiers</h3>
+      <p>Rendu dynamique via <code>updateFileTree()</code> à partir du tableau <code>files[]</code>.
+      Chaque item est un <code>.file-item</code> cliquable appelant <code>openFile(index)</code>.
+      L'item actif reçoit la classe <code>.active</code> (bordure verte, fond vert translucide).</p>
+
+      <div class="callout callout-lilac">
+        <div class="callout-label">⟩ Distinction visuelle</div>
+        Les fichiers chargés depuis le dossier serveur affichent l'icône 📄 (<code>fromFolder: true</code>),
+        les fichiers uploadés manuellement affichent 📝 (<code>fromFolder: false</code>).
+      </div>
+    </section>
+
+    <!-- ══ ÉDITEUR ══ -->
+    <section id="editor">
+      <h2>Éditeur</h2>
+
+      <p>L'éditeur est un simple <code>&lt;textarea#editor&gt;</code> en police monospace.
+      Il écoute l'événement <code>input</code> pour déclencher en temps réel :</p>
+      <ul style="margin-left:1.5rem;margin-bottom:1rem;color:var(--text-muted);font-size:0.95rem;">
+        <li>La mise à jour de l'aperçu (<code>updatePreview()</code>)</li>
+        <li>La mise à jour des statistiques (<code>updateStats()</code>)</li>
+        <li>Le marquage du fichier comme modifié (<code>currentFile.modified = true</code>)</li>
+      </ul>
+
+      <h3>Boutons de formatage rapide (panel-tools)</h3>
+      <p>Situés dans le header du panneau éditeur, ces boutons appellent tous <code>insertText(before, after)</code> :</p>
+
+      <table>
+        <thead><tr><th>Bouton</th><th>Action</th><th>Avant</th><th>Après</th></tr></thead>
+        <tbody>
+          <tr><td>H</td><td>Titre</td><td><code># </code></td><td>—</td></tr>
+          <tr><td>B</td><td>Gras</td><td><code>**</code></td><td><code>**</code></td></tr>
+          <tr><td>I</td><td>Italique</td><td><code>*</code></td><td><code>*</code></td></tr>
+          <tr><td>{ }</td><td>Code inline</td><td><code>`</code></td><td><code>`</code></td></tr>
+          <tr><td>🔗</td><td>Lien</td><td><code>[</code></td><td><code>](url)</code></td></tr>
+          <tr><td>•</td><td>Liste</td><td><code>- </code></td><td>—</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Fonction insertText(before, after)</h3>
+      <pre><code>function insertText(before, after = '') {
+  const start = editor.selectionStart;
+  const end   = editor.selectionEnd;
+  const text  = editor.value;
+  const selectedText = text.substring(start, end);
+
+  editor.value = text.substring(0, start)
+               + before + selectedText + after
+               + text.substring(end);
+
+  // Replace cursor after inserted text
+  const newPos = start + before.length + selectedText.length;
+  editor.setSelectionRange(newPos, newPos);
+  editor.focus();
+
+  updatePreview();
+  updateStats();
+  if (currentFile) { currentFile.content = editor.value; currentFile.modified = true; }
+}</code></pre>
+      <p>Si du texte est sélectionné, il est encadré. Sinon, le curseur se place après <code>before</code>.</p>
+    </section>
+
+    <!-- ══ PREVIEW ══ -->
+    <section id="preview">
+      <h2>Aperçu en temps réel</h2>
+
+      <h3>Rendu Markdown</h3>
+      <p>La fonction <code>updatePreview()</code> appelle <code>marked.parse(editor.value)</code>
+      puis injecte le HTML résultant dans <code>#preview</code> via <code>innerHTML</code>.
+      Elle effectue ensuite une substitution regex pour transformer les blocs
+      <code>```mermaid</code> en <code>&lt;div class="mermaid"&gt;</code> avant d'appeler
+      <code>mermaid.run({ querySelector: '.mermaid' })</code>.</p>
+
+      <pre><code>function updatePreview() {
+  let html = marked.parse(editor.value);
+
+  // Transform mermaid code blocks into mermaid divs
+  html = html.replace(
+    /&lt;pre&gt;&lt;code class="language-mermaid"&gt;([\s\S]*?)&lt;\/code&gt;&lt;\/pre&gt;/g,
+    '&lt;div class="mermaid"&gt;$1&lt;/div&gt;'
+  );
+
+  preview.innerHTML = html;
+  mermaid.run({ querySelector: '.mermaid' });
+}</code></pre>
+
+      <h3>Styles de l'aperçu</h3>
+      <p>Le conteneur <code>.preview-content</code> applique des surcharges spécifiques :</p>
+      <table>
+        <thead><tr><th>Élément</th><th>Style</th></tr></thead>
+        <tbody>
+          <tr><td>h1–h6</td><td>Couleur lilac-dim, bordure bottom lilac, text-shadow</td></tr>
+          <tr><td>code (inline)</td><td>Fond lilac-pale, bordure lilac, couleur purple</td></tr>
+          <tr><td>pre</td><td>Fond dark #1a1b26, bordure verte, padding 1.5rem</td></tr>
+          <tr><td>blockquote</td><td>Bordure gauche lilac, fond lilac 5%, italique</td></tr>
+          <tr><td>table</td><td>Bordure lilac, th fond lilac solide, hover row lilac 10%</td></tr>
+          <tr><td>img</td><td>max-width 100%, bordure lilac, border-radius 8px</td></tr>
+          <tr><td>a</td><td>Couleur purple, border-bottom, hover lilac-bright</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <hr>
+
+    <!-- ══ FILE MANAGEMENT ══ -->
+    <section id="file-management">
+      <h2>Gestion des fichiers</h2>
+
+      <h3>Chargement initial — loadFolder()</h3>
+      <p>Au démarrage, <code>loadFolder()</code> itère sur la liste statique <code>markdownFiles[]</code>
+      et effectue un <code>fetch(MARKDOWN_FOLDER + filename)</code> pour chaque entrée.
+      Les fichiers répondant avec <code>response.ok</code> sont poussés dans <code>files[]</code> avec
+      <code>fromFolder: true</code>. En cas d'échec (404, réseau), l'erreur est silencieuse
+      (<code>console.log</code> uniquement). Une fois le chargement terminé, <code>updateFileTree()</code>
+      et <code>openFile(0)</code> sont appelés, et un toast confirme le nombre de fichiers chargés.</p>
+
+      <div class="callout callout-gold">
+        <div class="callout-label">⟩ Attention</div>
+        Le chemin de base est <code>./markdown/</code> (constante <code>MARKDOWN_FOLDER</code>).
+        L'application doit donc être servie depuis un contexte HTTP — elle ne fonctionnera pas
+        en <code>file://</code> pour cette fonctionnalité (CORS/fetch restrictions).
+      </div>
+
+      <h3>Upload manuel — handleFiles()</h3>
+      <p>Déclenché par le sélecteur de fichiers ou le drag &amp; drop.
+      Appelle <code>loadUploadedFile(file)</code> pour chaque fichier valide.
+      Un <code>FileReader</code> lit le contenu texte et l'ajoute à <code>files[]</code>.
+      Si un fichier de même nom existe déjà, il est remplacé (<code>files[existingIndex] = fileData</code>).</p>
+
+      <h3>Nouveau fichier — newFile()</h3>
+      <p>Crée un objet FileObj avec le nom <code>nouveau-{Date.now()}.md</code>,
+      le contenu par défaut <code># Nouveau document\n\nCommencez à écrire ici...</code>,
+      <code>fromFolder: false</code> et <code>modified: true</code>. L'ouvre immédiatement.</p>
+
+      <h3>Avertissement de quitte</h3>
+      <p>L'événement <code>beforeunload</code> vérifie si <code>files.some(f => f.modified)</code>.
+      Si oui, il appelle <code>e.preventDefault()</code> et assigne <code>e.returnValue = ''</code>
+      pour afficher la boîte de dialogue native du navigateur.</p>
+    </section>
+
+    <!-- ══ RACCOURCIS ══ -->
+    <section id="shortcuts">
+      <h2>Raccourcis clavier</h2>
+
+      <p>Tous les raccourcis sont enregistrés sur <code>document.addEventListener('keydown', ...)</code>
+      et supportent <code>Ctrl</code> (Windows/Linux) et <code>Cmd</code> (macOS) indifféremment.</p>
+
+      <div class="shortcuts-grid">
+        <div class="shortcut"><kbd>Ctrl+S</kbd> <span>Sauvegarder (export MD)</span></div>
+        <div class="shortcut"><kbd>Ctrl+N</kbd> <span>Nouveau fichier</span></div>
+        <div class="shortcut"><kbd>Ctrl+E</kbd> <span>Exporter Markdown</span></div>
+        <div class="shortcut"><kbd>Ctrl+R</kbd> <span>Recharger le dossier</span></div>
+        <div class="shortcut"><kbd>Ctrl+1</kbd> <span>Vue Split</span></div>
+        <div class="shortcut"><kbd>Ctrl+2</kbd> <span>Vue Éditeur seul</span></div>
+        <div class="shortcut"><kbd>Ctrl+3</kbd> <span>Vue Aperçu seul</span></div>
+        <div class="shortcut"><kbd>Ctrl+B</kbd> <span>Gras (<code>**...**</code>)</span></div>
+        <div class="shortcut"><kbd>Ctrl+I</kbd> <span>Italique (<code>*...*</code>)</span></div>
+        <div class="shortcut"><kbd>Ctrl+K</kbd> <span>Lien (<code>[...](url)</code>)</span></div>
+      </div>
+
+      <div class="callout callout-lilac">
+        <div class="callout-label">⟩ Note</div>
+        <kbd>Ctrl+R</kbd> est intercepté et empêche le rechargement de la page (<code>e.preventDefault()</code>).
+        <kbd>Ctrl+N</kbd> empêche l'ouverture d'un nouvel onglet navigateur.
+      </div>
+    </section>
+
+    <!-- ══ EXPORT ══ -->
+    <section id="export">
+      <h2>Fonctions d'export</h2>
+
+      <p>Les trois fonctions d'export partagent le même mécanisme de téléchargement :</p>
+
+      <pre><code>const blob = new Blob([content], { type: 'text/markdown' });
+const url  = URL.createObjectURL(blob);
+const a    = document.createElement('a');
+a.href     = url;
+a.download = filename;
+a.click();
+URL.revokeObjectURL(url);</code></pre>
+
+      <h3>exportMd()</h3>
+      <p>Export brut du contenu <code>editor.value</code> en fichier <code>.md</code>.
+      Utilise le nom depuis <code>#filenameInput</code> ou le nom du fichier courant,
+      avec fallback sur <code>'document.md'</code>.</p>
+
+      <h3>saveToFolder()</h3>
+      <p>Identique à <code>exportMd()</code> mais met également à jour
+      <code>currentFile.content</code>, <code>currentFile.name</code> et
+      passe <code>currentFile.modified</code> à <code>false</code>.
+      Rafraîchit l'arbre de fichiers.</p>
+
+      <h3>exportHtml()</h3>
+      <p>Génère un fichier HTML standalone complet incluant :</p>
+      <ul style="margin-left:1.5rem;margin-bottom:1rem;color:var(--text-muted);font-size:0.95rem;">
+        <li>Le contenu <code>preview.innerHTML</code> (déjà converti en HTML)</li>
+        <li>Une feuille de style inline complète (thème lilac/vert terminal)</li>
+        <li>Support tables, blockquote, code, images, liens</li>
+      </ul>
+      <p>Le nom du fichier est dérivé du nom .md avec substitution de l'extension (<code>.replace('.md', '.html')</code>).</p>
+    </section>
+
+    <!-- ══ STATS ══ -->
+    <section id="stats">
+      <h2>Statistiques en temps réel</h2>
+
+      <p>La barre de statistiques <code>.stats-bar</code> (en bas du panneau éditeur) affiche :</p>
+
+      <table>
+        <thead><tr><th>Indicateur</th><th>ID DOM</th><th>Calcul</th></tr></thead>
+        <tbody>
+          <tr><td>Caractères</td><td>#charCount</td><td><code>text.length</code></td></tr>
+          <tr><td>Mots</td><td>#wordCount</td><td><code>text.trim().split(/\s+/).length</code></td></tr>
+          <tr><td>Lignes</td><td>#lineCount</td><td><code>text.split('\n').length</code></td></tr>
+        </tbody>
+      </table>
+
+      <p>La mise à jour est déclenchée à chaque frappe (<code>input</code> event) et à chaque
+      ouverture de fichier.</p>
+    </section>
+
+    <hr>
+
+    <!-- ══ CATALOGUE FICHIERS ══ -->
+    <section id="files-catalog">
+      <h2>Catalogue des fichiers Markdown</h2>
+
+      <p>14 fichiers sont définis dans le tableau <code>markdownFiles[]</code> et chargés
+      depuis <code>./markdown/</code> au démarrage :</p>
+
+      <div class="file-list">
+        <div class="file-entry">
+          <div class="fname">guide.md</div>
+          <div class="fdesc">Fichier ouvert par défaut. Contenu affiché dans l'aperçu initial : introduction philosophique sur la liberté de pensée, l'esprit critique et les mécanismes de conditionnement.</div>
+        </div>
+        <div class="file-entry">
+          <div class="fname">offre.md</div>
+          <div class="fdesc">Description de l'offre de services ouaisfi.eu.</div>
+        </div>
+        <div class="file-entry">
+          <div class="fname">WARNING.md</div>
+          <div class="fdesc">Avertissements (version anglaise).</div>
+        </div>
+        <div class="file-entry">
+          <div class="fname">avertissement.md</div>
+          <div class="fdesc">Avertissements (version française).</div>
+        </div>
+        <div class="file-entry">
+          <div class="fname">mission.md</div>
+          <div class="fdesc">Description de la mission civique de la structure.</div>
+        </div>
+        <div class="file-entry">
+          <div class="fname">service.md</div>
+          <div class="fdesc">Description des services proposés.</div>
+        </div>
+        <div class="file-entry">
+          <div class="fname">man.md</div>
+          <div class="fdesc">Manuel d'utilisation ou documentation complémentaire.</div>
+        </div>
+        <div class="file-entry">
+          <div class="fname">sauron.md</div>
+          <div class="fdesc">Document thématique (surveillance institutionnelle, référence LOTR probable).</div>
+        </div>
+        <div class="file-entry">
+          <div class="fname">postuler.md</div>
+          <div class="fdesc">Informations pour postuler / rejoindre le collectif.</div>
+        </div>
+        <div class="file-entry">
+          <div class="fname">partenariat.md</div>
+          <div class="fdesc">Informations sur les partenariats possibles.</div>
+        </div>
+        <div class="file-entry">
+          <div class="fname">omg.md</div>
+          <div class="fdesc">Contenu de réaction / synthèse éditoriale.</div>
+        </div>
+        <div class="file-entry">
+          <div class="fname">dossier_blanc.md</div>
+          <div class="fdesc">Dossier de référence ou document stratégique.</div>
+        </div>
+        <div class="file-entry">
+          <div class="fname">5_verites.md</div>
+          <div class="fdesc">Les cinq vérités fondatrices du projet.</div>
+        </div>
+        <div class="file-entry">
+          <div class="fname">plan-b.md</div>
+          <div class="fdesc">Plan alternatif / contingence stratégique.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ CONTENU EMBARQUÉ ══ -->
+    <section id="content">
+      <h2>Contenu embarqué (guide.md)</h2>
+
+      <p>Le fichier <code>guide.md</code> constitue le contenu de bienvenue de l'application.
+      Il est pré-rendu dans le DOM statique du fichier HTML (lignes 750–899)
+      et sert à la fois de démonstration des capacités de rendu et d'introduction
+      philosophique au projet ouaisfi.eu. Il se structure ainsi :</p>
+
+      <table>
+        <thead><tr><th>Section</th><th>Thème</th></tr></thead>
+        <tbody>
+          <tr><td>Salutations</td><td>Accueil par « Le Guide », jeton de présence, imagerie pigeon</td></tr>
+          <tr><td>Liberté de pensée</td><td>Analyse philosophique : liberté absolue vs. conditionnée</td></tr>
+          <tr><td>Influences invisibles</td><td>Structures sociales, biais cognitifs, chemins pré-tracés</td></tr>
+          <tr><td>Échapper à l'illusion</td><td>Méta-cognition, confrontation à l'altérité</td></tr>
+          <tr><td>Liberté relative</td><td>Naviguer consciemment entre les influences</td></tr>
+          <tr><td>Comment la pratiquer</td><td>6 pratiques concrètes (journal, sources, débat, lecture, déconnexion, mise à jour)</td></tr>
+          <tr><td>Esprit critique</td><td>Définition, 6 méthodes pratiques, exercices intégrés</td></tr>
+        </tbody>
+      </table>
+
+      <p>Des assets visuels sont référencés : <code>pigeonTemple.png</code>, <code>guide.png</code>,
+      <code>coin.png</code>, <code>hello·Baltringue.gif</code>. Tous dans <code>./Mission #0_files/</code>.</p>
+    </section>
+
+    <hr>
+
+    <!-- ══ CSS VARS ══ -->
+    <section id="css-vars">
+      <h2>Variables CSS</h2>
+
+      <table>
+        <thead><tr><th>Variable</th><th>Valeur</th><th>Usage</th></tr></thead>
+        <tbody>
+          <tr><td>--lilac</td><td>#b19cd9</td><td>Couleur principale, borders, titres</td></tr>
+          <tr><td>--lilac-bright</td><td>#c9b3ff</td><td>Hover états actifs</td></tr>
+          <tr><td>--lilac-dim</td><td>#9575cd</td><td>Titres preview, éléments secondaires</td></tr>
+          <tr><td>--purple</td><td>#8b5cf6</td><td>Liens, code inline preview</td></tr>
+          <tr><td>--terminal-green</td><td>#00ff41</td><td>Sidebar, états actifs, scanline</td></tr>
+          <tr><td>--terminal-green-bright</td><td>#39ff14</td><td>Nom de fichier actif en sidebar</td></tr>
+          <tr><td>--bg-light</td><td>#f5f3f7</td><td>Fond général clair</td></tr>
+          <tr><td>--bg-lighter</td><td>#faf9fb</td><td>Fond body</td></tr>
+          <tr><td>--glass-bg</td><td>rgba(245,243,247,0.85)</td><td>Header, toolbar (glassmorphism)</td></tr>
+          <tr><td>--text-dark</td><td>#2d1b3d</td><td>Texte principal</td></tr>
+          <tr><td>--editor-bg</td><td>#ffffff</td><td>Fond textarea éditeur</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ══ API JS ══ -->
+    <section id="api-js">
+      <h2>Référence des fonctions JavaScript</h2>
+
+      <table>
+        <thead><tr><th>Fonction</th><th>Signature</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>loadFolder</td><td><code>async () → void</code></td><td>Charge tous les fichiers depuis MARKDOWN_FOLDER via fetch</td></tr>
+          <tr><td>updateFileTree</td><td><code>() → void</code></td><td>Re-rend la liste de fichiers dans la sidebar</td></tr>
+          <tr><td>openFile</td><td><code>(index: number) → void</code></td><td>Ouvre un fichier par son index dans files[]</td></tr>
+          <tr><td>refreshFolder</td><td><code>() → void</code></td><td>Alias de loadFolder() avec toast</td></tr>
+          <tr><td>updatePreview</td><td><code>() → void</code></td><td>Parse Markdown → HTML, injecte dans #preview, lance Mermaid</td></tr>
+          <tr><td>updateStats</td><td><code>() → void</code></td><td>Met à jour charCount, wordCount, lineCount</td></tr>
+          <tr><td>handleFiles</td><td><code>(fileArray: File[]) → void</code></td><td>Filtre et charge les fichiers uploadés</td></tr>
+          <tr><td>loadUploadedFile</td><td><code>(file: File) → void</code></td><td>Lit un File via FileReader et l'ajoute à files[]</td></tr>
+          <tr><td>newFile</td><td><code>() → void</code></td><td>Crée un fichier vide temporaire</td></tr>
+          <tr><td>saveToFolder</td><td><code>() → void</code></td><td>Sauvegarde + export MD du fichier courant</td></tr>
+          <tr><td>exportMd</td><td><code>() → void</code></td><td>Export MD de l'éditeur</td></tr>
+          <tr><td>exportHtml</td><td><code>() → void</code></td><td>Export HTML stylisé standalone</td></tr>
+          <tr><td>setView</td><td><code>(view: string) → void</code></td><td>Bascule entre split / editor / preview</td></tr>
+          <tr><td>insertText</td><td><code>(before: string, after?: string) → void</code></td><td>Insère du texte autour de la sélection courante</td></tr>
+          <tr><td>showToast</td><td><code>(message: string) → void</code></td><td>Affiche une notification 3s en bas de l'écran</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ══ LIMITES ══ -->
+    <section id="known-limits">
+      <h2>Limites connues</h2>
+
+      <div class="callout callout-gold">
+        <div class="callout-label">⟩ Persistence</div>
+        Aucune persistance localStorage ou IndexedDB. Tout le contenu réside en RAM.
+        Un rechargement de page efface les fichiers uploadés manuellement et les modifications non exportées.
+      </div>
+
+      <div class="callout callout-lilac" style="margin-top:1rem;">
+        <div class="callout-label">⟩ Fetch CORS</div>
+        Le chargement des fichiers depuis <code>./markdown/</code> nécessite un contexte HTTP servi.
+        En <code>file://</code>, les fetch échoueront silencieusement et aucun fichier ne sera pré-chargé.
+      </div>
+
+      <div class="callout callout-green" style="margin-top:1rem;">
+        <div class="callout-label">⟩ Sauvegarde</div>
+        "Sauvegarder" déclenche un téléchargement navigateur — il n'y a pas d'écriture directe
+        sur le filesystem. L'utilisateur doit remplacer manuellement les fichiers sources si besoin.
+      </div>
+
+      <div class="callout callout-lilac" style="margin-top:1rem;">
+        <div class="callout-label">⟩ Vue Preview — bouton App</div>
+        Le bouton 📱 App est un lien externe habillé en bouton de toolbar. Il ne bascule pas l'état
+        <code>currentView</code> et ne désactive pas les autres boutons de vue.
+      </div>
+    </section>
+
+    <hr>
+
+    <footer style="font-family:var(--font-mono);font-size:0.7rem;color:var(--text-muted);padding-bottom:2rem;">
+      <div style="color:var(--green);margin-bottom:0.4rem;">⟩ FIN DE DOCUMENTATION</div>
+      Mission #0 · ouaisfi.eu · Documentation générée le 10 mars 2026<br>
+      Source : <code>https://ouaisfieu.github.io/offre/</code>
+    </footer>
+
+  </main>
+</div>
+
+<script>
+  // Highlight active nav link on scroll
+  const sections = document.querySelectorAll('section[id], div[id]');
+  const navLinks = document.querySelectorAll('nav a');
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('toc-active'));
+        const match = document.querySelector(`nav a[href="#${entry.target.id}"]`);
+        if (match) match.classList.add('toc-active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  sections.forEach(s => obs.observe(s));
+</script>
+</body>
+</html>
