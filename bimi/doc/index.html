@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Documentation — #B!Mi Plaidoyer Citoyen v4.4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0e1a;
+    --bg-surface: #14142a;
+    --bg-card: #1a1a35;
+    --border: #2a2a4a;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --voir: #63b3ed;
+    --juger: #f6ad55;
+    --agir: #68d391;
+    --text: #e8e8f0;
+    --text-muted: #8888aa;
+    --lilac: #b794f4;
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-sans: 'Inter', sans-serif;
+    --noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.7;
+    background-image: var(--noise);
+  }
+
+  /* ── Layout ── */
+  .layout { display: flex; min-height: 100vh; }
+
+  /* ── Sidebar ── */
+  .sidebar {
+    width: 280px;
+    flex-shrink: 0;
+    background: var(--bg-surface);
+    border-right: 1px solid var(--border);
+    padding: 2rem 1.5rem;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+
+  .sidebar-logo {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    color: var(--gold);
+    letter-spacing: 0.04em;
+    margin-bottom: 0.25rem;
+    font-weight: 700;
+  }
+  .sidebar-sub {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+  }
+
+  .nav-section {
+    margin-bottom: 1.5rem;
+  }
+  .nav-section-title {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-link {
+    display: block;
+    padding: 0.3rem 0.5rem;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.15s;
+    margin-bottom: 0.1rem;
+  }
+  .nav-link:hover { background: var(--bg-card); color: var(--text); }
+  .nav-link.voir { border-left: 2px solid var(--voir); padding-left: 0.75rem; }
+  .nav-link.juger { border-left: 2px solid var(--juger); padding-left: 0.75rem; }
+  .nav-link.agir { border-left: 2px solid var(--agir); padding-left: 0.75rem; }
+  .nav-link.lilac { border-left: 2px solid var(--lilac); padding-left: 0.75rem; }
+
+  /* ── Main ── */
+  .main {
+    flex: 1;
+    max-width: 860px;
+    padding: 4rem 3rem;
+  }
+
+  /* ── Typography ── */
+  h1 {
+    font-family: var(--font-serif);
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    line-height: 1.15;
+    margin-bottom: 0.5rem;
+  }
+  h2 {
+    font-family: var(--font-serif);
+    font-size: 1.9rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-top: 3.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--gold);
+    margin-top: 2rem;
+    margin-bottom: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.8rem;
+  }
+  h4 {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-top: 1.5rem;
+    margin-bottom: 0.4rem;
+  }
+  p { margin-bottom: 1rem; color: var(--text); }
+  p:last-child { margin-bottom: 0; }
+
+  .lead {
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+  }
+
+  /* ── Meta header ── */
+  .doc-meta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+  .badge {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 20px;
+    border: 1px solid;
+  }
+  .badge-gold { color: var(--gold); border-color: var(--gold); background: rgba(201,168,76,0.08); }
+  .badge-green { color: var(--agir); border-color: var(--agir); background: rgba(104,211,149,0.08); }
+  .badge-blue { color: var(--voir); border-color: var(--voir); background: rgba(99,179,237,0.08); }
+  .badge-lilac { color: var(--lilac); border-color: var(--lilac); background: rgba(183,148,244,0.08); }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .card-voir { border-left: 3px solid var(--voir); }
+  .card-juger { border-left: 3px solid var(--juger); }
+  .card-agir { border-left: 3px solid var(--agir); }
+  .card-lilac { border-left: 3px solid var(--lilac); }
+  .card-gold { border-left: 3px solid var(--gold); }
+
+  /* ── Phase banner ── */
+  .phase-banner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    margin: 2rem 0 1rem;
+  }
+  .phase-banner.voir { background: rgba(99,179,237,0.08); border: 1px solid rgba(99,179,237,0.25); }
+  .phase-banner.juger { background: rgba(246,173,85,0.08); border: 1px solid rgba(246,173,85,0.25); }
+  .phase-banner.agir { background: rgba(104,211,149,0.08); border: 1px solid rgba(104,211,149,0.25); }
+  .phase-banner .phase-icon { font-size: 2rem; }
+  .phase-banner .phase-title { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 700; }
+  .phase-banner.voir .phase-title { color: var(--voir); }
+  .phase-banner.juger .phase-title { color: var(--juger); }
+  .phase-banner.agir .phase-title { color: var(--agir); }
+  .phase-banner .phase-desc { font-size: 0.85rem; color: var(--text-muted); }
+
+  /* ── Tool grid ── */
+  .tool-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin: 1rem 0;
+  }
+  .tool-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1rem;
+  }
+  .tool-card .tool-name {
+    font-weight: 600;
+    font-size: 0.88rem;
+    margin-bottom: 0.35rem;
+  }
+  .tool-card .tool-desc {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .tool-card.voir { border-top: 2px solid var(--voir); }
+  .tool-card.juger { border-top: 2px solid var(--juger); }
+  .tool-card.agir { border-top: 2px solid var(--agir); }
+
+  /* ── Code / mono ── */
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    background: rgba(255,255,255,0.06);
+    padding: 0.1em 0.4em;
+    border-radius: 3px;
+    color: var(--gold-light);
+  }
+  pre {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.25rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+    line-height: 1.6;
+    color: var(--agir);
+  }
+
+  /* ── Table ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.85rem;
+  }
+  th {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    text-align: left;
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1px solid rgba(42,42,74,0.5);
+    vertical-align: top;
+  }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+
+  /* ── Keyboard shortcut ── */
+  kbd {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.15rem 0.5rem;
+    color: var(--text);
+  }
+
+  /* ── Note / callout ── */
+  .note {
+    background: rgba(183,148,244,0.07);
+    border-left: 3px solid var(--lilac);
+    border-radius: 0 6px 6px 0;
+    padding: 0.85rem 1.2rem;
+    margin: 1rem 0;
+    font-size: 0.88rem;
+  }
+  .note strong { color: var(--lilac); }
+
+  .warning {
+    background: rgba(246,173,85,0.07);
+    border-left: 3px solid var(--juger);
+    border-radius: 0 6px 6px 0;
+    padding: 0.85rem 1.2rem;
+    margin: 1rem 0;
+    font-size: 0.88rem;
+  }
+
+  /* ── Section anchor ── */
+  .section-anchor { scroll-margin-top: 2rem; }
+
+  /* ── Separator ── */
+  .sep {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 3rem 0;
+  }
+
+  /* ── TOC overview ── */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin: 1.5rem 0;
+  }
+  .overview-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1rem;
+    text-align: center;
+  }
+  .overview-num {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+  .overview-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  /* ── Export card ── */
+  .export-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin: 0.75rem 0;
+  }
+  .export-tag {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 4px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .sidebar { display: none; }
+    .main { padding: 2rem 1.5rem; }
+    .tool-grid { grid-template-columns: 1fr; }
+    .overview-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media print {
+    .sidebar { display: none; }
+    body { background: white; color: black; }
+  }
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">📋 #B!Mi Plaidoyer</div>
+    <div class="sidebar-sub">Documentation technique v4.4</div>
+
+    <nav>
+      <div class="nav-section">
+        <div class="nav-section-title">Présentation</div>
+        <a href="#presentation" class="nav-link">Vue d'ensemble</a>
+        <a href="#architecture" class="nav-link">Architecture</a>
+        <a href="#persistance" class="nav-link">Persistance des données</a>
+        <a href="#pwa" class="nav-link">PWA & mode hors-ligne</a>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-title">Méthodologie VJA</div>
+        <a href="#vja" class="nav-link">Cadre Voir-Juger-Agir</a>
+        <a href="#voir" class="nav-link voir">👁️ Phase VOIR (3 outils)</a>
+        <a href="#juger" class="nav-link juger">⚖️ Phase JUGER (6 outils)</a>
+        <a href="#agir" class="nav-link agir">✊ Phase AGIR (6 outils)</a>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-title">Outils transversaux</div>
+        <a href="#acteurs" class="nav-link">Cartographie acteurs</a>
+        <a href="#smart" class="nav-link">Objectifs SMART</a>
+        <a href="#journal" class="nav-link">Journal de bord</a>
+        <a href="#export" class="nav-link">Import / Export</a>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-title">Technique</div>
+        <a href="#data-model" class="nav-link lilac">Modèle de données</a>
+        <a href="#fonctions" class="nav-link lilac">Fonctions clés</a>
+        <a href="#raccourcis" class="nav-link lilac">Raccourcis clavier</a>
+        <a href="#templates" class="nav-link lilac">Modèles préconfigurés</a>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-title">Déploiement</div>
+        <a href="#licence" class="nav-link">Licence & crédits</a>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <!-- ═══ HEADER ═══ -->
+    <h1>#B!Mi<br>Plaidoyer Citoyen</h1>
+    <p class="lead">Documentation technique et fonctionnelle — Version 4.4 PWA<br>Poste de Travail pour la Participation Citoyenne et l'Éducation Populaire</p>
+
+    <div class="doc-meta">
+      <span class="badge badge-gold">v4.4 PWA</span>
+      <span class="badge badge-green">Offline-first</span>
+      <span class="badge badge-blue">15 outils VJA</span>
+      <span class="badge badge-lilac">CC BY-NC-SA 4.0</span>
+      <span class="badge badge-gold">Single-file HTML</span>
+    </div>
+
+    <div class="overview-grid">
+      <div class="overview-item">
+        <div class="overview-num">15</div>
+        <div class="overview-label">Outils méthodologiques</div>
+      </div>
+      <div class="overview-item">
+        <div class="overview-num">6</div>
+        <div class="overview-label">Formats d'export</div>
+      </div>
+      <div class="overview-item">
+        <div class="overview-num">2</div>
+        <div class="overview-label">Modèles préconfigurés</div>
+      </div>
+      <div class="overview-item">
+        <div class="overview-num">∞</div>
+        <div class="overview-label">Projets multi-fichiers</div>
+      </div>
+      <div class="overview-item">
+        <div class="overview-num">0</div>
+        <div class="overview-label">Dépendances serveur</div>
+      </div>
+      <div class="overview-item">
+        <div class="overview-num">100%</div>
+        <div class="overview-label">Client-side</div>
+      </div>
+    </div>
+
+    <hr class="sep">
+
+    <!-- ═══ PRÉSENTATION ═══ -->
+    <section id="presentation" class="section-anchor">
+      <h2>Présentation générale</h2>
+
+      <p>#B!Mi Plaidoyer Citoyen est une application web monopage (<em>Single-Page Application</em>) conçue comme un poste de travail numérique complet pour la construction de stratégies de plaidoyer citoyen. Elle est distribuée sous forme d'un unique fichier HTML auto-contenu, sans nécessiter de serveur ni de connexion réseau après chargement initial.</p>
+
+      <p>L'application implémente la méthodologie <strong>Voir-Juger-Agir</strong> (VJA), issue de la tradition de l'éducation populaire et de l'action communautaire, en la décomposant en 15 outils structurés répartis sur trois phases d'analyse et d'action.</p>
+
+      <h3>Public cible</h3>
+      <p>Militants, associations, collectifs citoyens, mouvements d'éducation permanente, facilitateurs de démocratie participative — toute personne ou organisation cherchant à formaliser une stratégie de changement social.</p>
+
+      <h3>URL de référence</h3>
+      <p>L'application est hébergée à l'adresse canonique : <code>https://yannkeep.github.io/plaidoyer/app/index.html</code></p>
+    </section>
+
+    <!-- ═══ ARCHITECTURE ═══ -->
+    <section id="architecture" class="section-anchor">
+      <h2>Architecture technique</h2>
+
+      <div class="card card-gold">
+        <h4>Fichier unique, zéro dépendance backend</h4>
+        <p>L'intégralité de l'application — HTML, CSS, JavaScript, logique métier, modèle de données — est contenue dans un seul fichier <code>.html</code>. Aucune requête API externe n'est effectuée en dehors de la police de caractères Google Fonts et des bibliothèques CDN chargées au démarrage.</p>
+      </div>
+
+      <h3>Bibliothèques externes</h3>
+      <table>
+        <thead>
+          <tr><th>Bibliothèque</th><th>Usage</th><th>Source</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>docx.js</code></td><td>Génération de fichiers Word (.docx)</td><td>CDN</td></tr>
+          <tr><td><code>vis.js Network</code></td><td>Cartographie interactive des acteurs (graphe force-directed)</td><td>CDN</td></tr>
+          <tr><td>Google Fonts</td><td>Typographies de l'interface</td><td>fonts.googleapis.com</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Structure du DOM</h3>
+      <p>L'application est organisée autour d'un layout en deux colonnes :</p>
+      <ul style="padding-left:1.5rem; margin-bottom:1rem;">
+        <li style="margin-bottom:0.4rem;"><strong>Sidebar (<code>#sidebar</code>)</strong> — navigation entre les 15 outils, indicateur de statut, bouton raccourcis clavier</li>
+        <li style="margin-bottom:0.4rem;"><strong>Zone principale (<code>#main-content</code>)</strong> — affichage conditionnel des sections (<code>.page</code>) via <code>showPage()</code></li>
+        <li style="margin-bottom:0.4rem;"><strong>Header (<code>#header</code>)</strong> — titre du projet actif, actions globales (nouveau, dupliquer, supprimer)</li>
+        <li><strong>Système de toasts</strong> — notifications non-bloquantes en haut de l'écran</li>
+      </ul>
+
+      <h3>Routage interne</h3>
+      <p>Chaque outil correspond à une <code>&lt;section class="page" id="p-[nom]"&gt;</code>. La navigation est gérée par <code>showPage(pageId)</code> qui masque/affiche les sections en manipulant la classe <code>active</code>. Aucun hash URL ou History API n'est utilisé.</p>
+    </section>
+
+    <!-- ═══ PERSISTANCE ═══ -->
+    <section id="persistance" class="section-anchor">
+      <h2>Persistance des données</h2>
+
+      <p>L'application gère plusieurs projets en parallèle grâce à une couche de persistance locale à deux niveaux avec fallback automatique.</p>
+
+      <div class="card card-agir">
+        <h4>IndexedDB (prioritaire)</h4>
+        <p>Stockage structuré côté navigateur, sans limite de taille pratique. Chaque projet est stocké comme un enregistrement dans le store <code>projects</code>. Les opérations sont asynchrones (<code>async/await</code>).</p>
+      </div>
+
+      <div class="card card-juger">
+        <h4>localStorage (fallback)</h4>
+        <p>Utilisé automatiquement si IndexedDB est indisponible (navigateurs anciens, mode privé strict). Tous les projets sont sérialisés dans une clé unique <code>bimi_projects</code> sous forme de tableau JSON.</p>
+      </div>
+
+      <h3>API de persistance interne</h3>
+      <table>
+        <thead>
+          <tr><th>Fonction</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>openDB()</code></td><td>Ouvre la base IndexedDB (version 1), crée le store si absent</td></tr>
+          <tr><td><code>dbGetAll()</code></td><td>Retourne tous les projets triés par date de modification</td></tr>
+          <tr><td><code>dbGet(id)</code></td><td>Récupère un projet par son <code>id</code> unique</td></tr>
+          <tr><td><code>dbPut(project)</code></td><td>Crée ou met à jour un projet (upsert)</td></tr>
+          <tr><td><code>dbDelete(id)</code></td><td>Supprime définitivement un projet</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Sauvegarde automatique</h3>
+      <p>Chaque modification d'un champ (<code>input</code>, <code>textarea</code>) déclenche <code>scheduleSave()</code>, qui met en place un <em>debounce</em> de 1500 ms avant la sauvegarde effective. Ceci évite les écritures trop fréquentes sans risquer de perdre des données.</p>
+
+      <div class="note">
+        <strong>Note :</strong> Les données sont exclusivement stockées localement dans le navigateur. Aucune information ne transite vers un serveur externe. La confidentialité des projets est donc totale.
+      </div>
+    </section>
+
+    <!-- ═══ PWA ═══ -->
+    <section id="pwa" class="section-anchor">
+      <h2>PWA & mode hors-ligne</h2>
+
+      <p>L'application implémente les spécifications PWA (Progressive Web App) pour permettre une installation native sur mobile et desktop, ainsi qu'un fonctionnement hors-ligne complet.</p>
+
+      <h3>Composantes PWA</h3>
+      <table>
+        <thead><tr><th>Composante</th><th>Détail</th></tr></thead>
+        <tbody>
+          <tr><td>Web App Manifest</td><td>Inliné en base64 dans une balise <code>&lt;link rel="manifest"&gt;</code> — contient nom, description, icônes, couleurs thème, orientation, catégories</td></tr>
+          <tr><td>Service Worker</td><td>Enregistré via <code>registerServiceWorker()</code> si l'app est hébergée (<code>isHosted</code>). Fichier externe <code>./sw.js</code></td></tr>
+          <tr><td>Icônes</td><td>SVG inline (🗳️) pour toutes les tailles — iOS, Android, desktop</td></tr>
+          <tr><td>Install prompt</td><td>Bouton d'installation dynamique affiché lors de l'événement <code>beforeinstallprompt</code></td></tr>
+        </tbody>
+      </table>
+
+      <h3>Gestion du statut réseau</h3>
+      <p>Des listeners <code>online</code> / <code>offline</code> affichent des toasts de notification et appliquent la classe <code>offline</code> sur le <code>body</code> pour adapter l'interface visuellement. En mode hors-ligne, toutes les fonctionnalités de saisie et d'export restent disponibles.</p>
+
+      <h3>Mise à jour</h3>
+      <p>Lorsqu'une nouvelle version du Service Worker est détectée (<code>statechange → installed</code>), une notification de mise à jour est proposée via <code>showUpdateNotification()</code>.</p>
+    </section>
+
+    <hr class="sep">
+
+    <!-- ═══ MÉTHODOLOGIE VJA ═══ -->
+    <section id="vja" class="section-anchor">
+      <h2>Cadre méthodologique Voir-Juger-Agir</h2>
+
+      <p>La méthodologie <strong>Voir-Juger-Agir</strong> est une démarche d'action collective née dans la tradition de l'éducation populaire catholique (JOC, années 1930, Joseph Cardijn). Elle structure le processus de changement social en trois étapes séquentielles et itératives :</p>
+
+      <div class="card card-voir" style="margin-bottom:0.5rem;">
+        <strong style="color:var(--voir);">VOIR</strong> — Observer et analyser la réalité concrète, identifier les acteurs et les rapports de pouvoir, recueillir les faits sans jugement préalable.
+      </div>
+      <div class="card card-juger" style="margin-bottom:0.5rem;">
+        <strong style="color:var(--juger);">JUGER</strong> — Interpréter les faits à la lumière de valeurs et d'outils d'analyse, élaborer une lecture critique et stratégique de la situation.
+      </div>
+      <div class="card card-agir">
+        <strong style="color:var(--agir);">AGIR</strong> — Définir et mettre en œuvre des actions concrètes, formuler des objectifs mesurables, construire des alliances et communiquer.
+      </div>
+
+      <p>Les 15 outils de l'application sont répartis équitablement entre ces trois phases : 3 outils VOIR + 6 outils JUGER + 6 outils AGIR.</p>
+    </section>
+
+    <!-- ═══ VOIR ═══ -->
+    <section id="voir" class="section-anchor">
+      <div class="phase-banner voir">
+        <div class="phase-icon">👁️</div>
+        <div>
+          <div class="phase-title">VOIR — Analyse</div>
+          <div class="phase-desc">3 outils · Observer la réalité, identifier les acteurs et les rapports de pouvoir</div>
+        </div>
+      </div>
+
+      <div class="tool-grid">
+        <div class="tool-card voir">
+          <div class="tool-name">🎯 Vision (Domino du changement)</div>
+          <div class="tool-desc">Clarification stratégique fondamentale. Trois champs : <strong>Vision</strong> (le changement concret souhaité), <strong>Obstacles</strong> (freins identifiés), <strong>Ressources</strong> (forces mobilisables). C'est l'outil de cadrage initial du projet.</div>
+        </div>
+        <div class="tool-card voir">
+          <div class="tool-name">👤 Profil citoyen</div>
+          <div class="tool-desc">Autodiagnostic de l'engagement. Quatre champs : <strong>Motivations</strong>, <strong>Compétences</strong>, <strong>Disponibilité</strong>, <strong>Limites</strong>. Permet de calibrer l'engagement sur la durée et d'identifier les besoins de formation.</div>
+        </div>
+        <div class="tool-card voir">
+          <div class="tool-name">🌸 Fleur du pouvoir</div>
+          <div class="tool-desc">Analyse intersectionnelle des rapports de pouvoir. Trois axes : <strong>Identités</strong> des personnes concernées, <strong>Privilèges</strong> du collectif porteur, <strong>Oppressions</strong> en jeu. Outil d'ancrage dans une perspective de justice sociale.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ JUGER ═══ -->
+    <section id="juger" class="section-anchor">
+      <div class="phase-banner juger">
+        <div class="phase-icon">⚖️</div>
+        <div>
+          <div class="phase-title">JUGER — Stratégie</div>
+          <div class="phase-desc">6 outils · Analyse critique, modélisation du problème et construction stratégique</div>
+        </div>
+      </div>
+
+      <div class="tool-grid">
+        <div class="tool-card juger">
+          <div class="tool-name">👥 Cartographie des acteurs</div>
+          <div class="tool-desc">Identification et positionnement de toutes les parties prenantes. Matrice Pouvoir/Intérêt, visualisation en réseau interactif (vis.js), gestion des liens entre acteurs. Quatre quadrants stratégiques : Gérer de près / Garder satisfait / Garder informé / Surveiller.</div>
+        </div>
+        <div class="tool-card juger">
+          <div class="tool-name">🌳 Arbre à problèmes</div>
+          <div class="tool-desc">Modélisation visuelle du problème central (tronc), ses causes profondes (racines) et ses conséquences (branches). Permet d'identifier les points de levier prioritaires pour l'action.</div>
+        </div>
+        <div class="tool-card juger">
+          <div class="tool-name">❓ Les 5 Pourquoi</div>
+          <div class="tool-desc">Technique d'analyse causale par itération. Cinq champs séquentiels permettant de remonter aux causes racines structurelles au-delà des symptômes apparents.</div>
+        </div>
+        <div class="tool-card juger">
+          <div class="tool-name">📐 Analyse SWOT</div>
+          <div class="tool-desc">Grille classique en quatre quadrants : Forces internes / Faiblesses internes / Opportunités externes / Menaces externes. Synthèse stratégique du contexte d'action.</div>
+        </div>
+        <div class="tool-card juger">
+          <div class="tool-name">🌍 Analyse PESTEL</div>
+          <div class="tool-desc">Balayage macro-environnemental en six dimensions : Politique, Économique, Social, Technologique, Environnemental, Légal. Indispensable pour contextualiser le plaidoyer dans son environnement systémique.</div>
+        </div>
+        <div class="tool-card juger">
+          <div class="tool-name">🔄 Théorie du changement</div>
+          <div class="tool-desc">Explicitation du chemin de changement : situation actuelle → situation souhaitée, via mécanismes d'action et hypothèses sous-jacentes. Quatre champs : Situation actuelle, Situation souhaitée, Mécanismes, Hypothèses.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ AGIR ═══ -->
+    <section id="agir" class="section-anchor">
+      <div class="phase-banner agir">
+        <div class="phase-icon">✊</div>
+        <div>
+          <div class="phase-title">AGIR — Action</div>
+          <div class="phase-desc">6 outils · Planification, communication et suivi de l'impact</div>
+        </div>
+      </div>
+
+      <div class="tool-grid">
+        <div class="tool-card agir">
+          <div class="tool-name">⚡ Avec / Sans / Contre</div>
+          <div class="tool-desc">Trois postures stratégiques vis-à-vis du pouvoir : <strong>Avec</strong> (collaboration, lobbying institutionnel), <strong>Sans</strong> (alternatives parallèles, projets pilotes), <strong>Contre</strong> (opposition, mobilisation, recours juridiques). Outil de décision tactique.</div>
+        </div>
+        <div class="tool-card agir">
+          <div class="tool-name">🎯 Cibles & Alliés</div>
+          <div class="tool-desc">Identification précise des trois cercles : <strong>Cibles principales</strong> (décideurs ayant le pouvoir de changement), <strong>Cibles secondaires</strong> (influenceurs), <strong>Alliés</strong> (partenaires stratégiques). Base de la stratégie d'influence.</div>
+        </div>
+        <div class="tool-card agir">
+          <div class="tool-name">📋 Objectifs SMART</div>
+          <div class="tool-desc">Gestionnaire complet d'objectifs SMART (Spécifique, Mesurable, Atteignable, Réaliste, Temporel). Avec indicateur de mesure, échéance, statut kanban (À faire / En cours / Fait / Abandonné), vues liste / kanban / timeline / Gantt.</div>
+        </div>
+        <div class="tool-card agir">
+          <div class="tool-name">💬 Message clé</div>
+          <div class="tool-desc">Construction du message de plaidoyer selon la structure classique : <strong>Accroche</strong> → <strong>Problème</strong> → <strong>Pourquoi c'est important</strong> → <strong>À qui on s'adresse</strong> → <strong>Action demandée</strong>. Prévisualisation temps réel et copie presse-papiers.</div>
+        </div>
+        <div class="tool-card agir">
+          <div class="tool-name">📈 Suivi-évaluation</div>
+          <div class="tool-desc">Cadre d'évaluation de l'impact : <strong>Indicateurs</strong> de succès (quantitatifs et qualitatifs), <strong>Méthodes de collecte</strong>, <strong>Calendrier d'évaluation</strong>, <strong>Leçons apprises</strong>. Ancrage dans une culture de redevabilité.</div>
+        </div>
+        <div class="tool-card agir">
+          <div class="tool-name">📓 Journal de bord</div>
+          <div class="tool-desc">Chronique datée du parcours militant. Entrées horodatées, texte libre. Mémoire collective du projet, précieuse pour la transmission et l'évaluation rétrospective.</div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="sep">
+
+    <!-- ═══ OUTILS TRANSVERSAUX ═══ -->
+    <section id="acteurs" class="section-anchor">
+      <h2>Cartographie des acteurs — détail technique</h2>
+
+      <p>La cartographie est l'outil le plus complexe techniquement. Elle combine une gestion de liste tabulaire avec une visualisation en graphe de réseau interactif via la bibliothèque <strong>vis.js Network</strong>.</p>
+
+      <h3>Modèle d'un acteur</h3>
+      <pre>{
+  id:       number,      // Identifiant unique auto-incrémenté
+  name:     string,      // Nom de l'acteur
+  role:     string,      // Rôle / fonction
+  position: string,      // "ally" | "opponent" | "neutral" | "target"
+  power:    number       // Score de pouvoir 1-5 (matrice Pouvoir/Intérêt)
+}</pre>
+
+      <h3>Visualisation réseau</h3>
+      <p>Le graphe <code>vis.js</code> est initialisé par <code>initNetworkGraph()</code> et mis à jour par <code>updateNetworkGraph()</code> à chaque modification. Les liens entre acteurs sont gérés séparément (<code>project.links</code>). Un bouton d'export en image PNG est disponible directement dans l'interface.</p>
+
+      <h3>Vues disponibles</h3>
+      <p>L'outil propose deux vues commutables : <strong>Liste</strong> (tableau enrichi avec drag-and-drop pour réorganiser) et <strong>Réseau</strong> (graphe interactif force-directed). La fonction <code>switchActorView(view)</code> gère la transition.</p>
+    </section>
+
+    <section id="smart" class="section-anchor">
+      <h2>Objectifs SMART — détail technique</h2>
+
+      <h3>Modèle d'un objectif</h3>
+      <pre>{
+  id:        number,
+  text:      string,   // Libellé de l'objectif
+  indicator: string,   // Indicateur de mesure
+  deadline:  string,   // Date ISO "YYYY-MM-DD"
+  status:    string,   // "todo" | "inprogress" | "done" | "abandoned"
+  done:      boolean   // Raccourci pour status === "done"
+}</pre>
+
+      <h3>Quatre vues disponibles</h3>
+      <table>
+        <thead><tr><th>Vue</th><th>Fonction</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>Liste</td><td><code>renderSmart()</code></td><td>Affichage tabulaire avec badge de statut et indicateur d'échéance coloré</td></tr>
+          <tr><td>Kanban</td><td><code>renderKanban()</code></td><td>Colonnes glissables par statut, drag-and-drop entre colonnes</td></tr>
+          <tr><td>Timeline</td><td><code>renderTimeline()</code></td><td>Frise chronologique des objectifs triés par échéance</td></tr>
+          <tr><td>Gantt</td><td><code>renderGantt()</code></td><td>Diagramme de Gantt simplifié avec barres de durée relatives</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Codage couleur des échéances</h3>
+      <p>La fonction <code>getDeadlineClass(deadline)</code> applique une classe CSS selon l'urgence : <code>overdue</code> (dépassé) · <code>urgent</code> (< 7 jours) · <code>soon</code> (< 14 jours) · défaut (neutre).</p>
+    </section>
+
+    <section id="journal" class="section-anchor">
+      <h2>Journal de bord</h2>
+
+      <h3>Modèle d'une entrée</h3>
+      <pre>{
+  id:      number,
+  date:    string,   // "YYYY-MM-DD"
+  content: string    // Texte libre de l'entrée
+}</pre>
+
+      <p>Les entrées sont affichées en ordre chronologique inverse (la plus récente en premier). La date est automatiquement initialisée à aujourd'hui lors de la création d'une nouvelle entrée.</p>
+    </section>
+
+    <!-- ═══ IMPORT / EXPORT ═══ -->
+    <section id="export" class="section-anchor">
+      <h2>Import / Export</h2>
+
+      <p>L'outil d'import/export centralise toutes les opérations de transfert de données. Il est accessible via la section <code>p-export</code> et le bouton de navigation latéral.</p>
+
+      <h3>Formats d'export disponibles</h3>
+      <div class="export-row">
+        <span class="export-tag">📋 JSON</span>
+        <span class="export-tag">📝 Markdown</span>
+        <span class="export-tag">🌐 HTML</span>
+        <span class="export-tag">📊 CSV</span>
+        <span class="export-tag" style="color:var(--lilac);">📄 PDF stylisé</span>
+        <span class="export-tag" style="color:var(--agir);">📘 Word .docx</span>
+      </div>
+
+      <table>
+        <thead><tr><th>Format</th><th>Fonction</th><th>Usage recommandé</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><code>JSON</code></td>
+            <td><code>doExport('json')</code></td>
+            <td>Sauvegarde complète et portative. Format d'import pour restaurer un projet. Interopérable avec d'autres outils #B!Mi.</td>
+          </tr>
+          <tr>
+            <td><code>Markdown</code></td>
+            <td><code>generateMarkdown()</code></td>
+            <td>Publication sur GitHub, Obsidian, Jekyll. Texte lisible par les humains et les machines.</td>
+          </tr>
+          <tr>
+            <td><code>HTML</code></td>
+            <td><code>generateHTML()</code></td>
+            <td>Rapport web auto-contenu, publiable directement. Inclut le CSS de mise en forme.</td>
+          </tr>
+          <tr>
+            <td><code>CSV</code></td>
+            <td><code>generateCSV()</code></td>
+            <td>Analyse dans LibreOffice Calc, Excel, Google Sheets. Structure plate avec colonnes Phase / Section / Champ / Valeur.</td>
+          </tr>
+          <tr>
+            <td><code>PDF</code></td>
+            <td><code>generatePDF()</code></td>
+            <td>Impression via <code>window.print()</code> avec styles dédiés <code>@media print</code>. Rapport stylisé avec logo et mise en page.</td>
+          </tr>
+          <tr>
+            <td><code>DOCX</code></td>
+            <td><code>generateDOCX()</code></td>
+            <td>Document Word avec styles professionnels, structuré par phases VJA. Utilise la bibliothèque <code>docx.js</code>.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Import JSON</h3>
+      <p>La fonction <code>importJSON(file)</code> accepte :</p>
+      <ul style="padding-left:1.5rem; margin-bottom:1rem;">
+        <li>Les exports natifs <code>#B!Mi</code> (format <code>{ project: {...}, ... }</code>)</li>
+        <li>Les datasets compatibles (ancien format plat)</li>
+        <li>Les fichiers glissés-déposés sur la zone de drop dédiée</li>
+      </ul>
+
+      <div class="warning">
+        <strong>Format non reconnu :</strong> Si le fichier JSON importé ne correspond ni au format natif ni à un dataset compatible, l'application lève une erreur explicite : <em>« Format de fichier non reconnu. Utilisez un export JSON de #B!Mi ou un dataset compatible. »</em>
+      </div>
+    </section>
+
+    <hr class="sep">
+
+    <!-- ═══ MODÈLE DE DONNÉES ═══ -->
+    <section id="data-model" class="section-anchor">
+      <h2>Modèle de données complet</h2>
+
+      <p>Un projet est un objet JavaScript sérialisé en JSON. Voici la structure complète d'un objet projet tel que retourné par <code>newProject()</code> :</p>
+
+      <pre>{
+  id:         string,       // UUID timestamp : Date.now().toString(36)
+  name:       string,       // Titre du projet
+  desc:       string,       // Description courte
+  createdAt:  string,       // ISO date
+  updatedAt:  string,       // ISO date (mis à jour à chaque save)
+
+  // ── VOIR ──
+  domino: {
+    vision:     string,     // Le changement concret souhaité
+    obstacles:  string,     // Freins identifiés
+    ressources: string      // Forces mobilisables
+  },
+  profil: {
+    motivations: string,
+    competences: string,
+    temps:       string,
+    limites:     string
+  },
+  fleur: {
+    identites:   string,    // Personnes concernées
+    privileges:  string,    // Avantages du collectif porteur
+    oppressions: string     // Systèmes d'oppression en jeu
+  },
+
+  // ── JUGER ──
+  acteurs:  Acteur[],       // Liste d'objets acteur (voir ci-dessus)
+  links:    Link[],         // Liens entre acteurs pour le graphe
+  arbre: {
+    probleme:     string,
+    causes:       string,
+    consequences: string
+  },
+  pourquoi: {
+    p1: string, p2: string, p3: string,
+    p4: string, p5: string
+  },
+  swot: {
+    forces: string, faiblesses: string,
+    opportunites: string, menaces: string
+  },
+  pestel: {
+    p: string, e: string, s: string,
+    t: string, en: string, l: string
+  },
+  tdc: {
+    actuelle: string, souhaitee: string,
+    mecanismes: string, hypotheses: string
+  },
+
+  // ── AGIR ──
+  pouvoir: {
+    avec: string, sans: string, contre: string
+  },
+  cibles: {
+    principales: string,
+    secondaires: string,
+    allies:      string
+  },
+  smart:  Objectif[],       // Liste d'objectifs SMART (voir ci-dessus)
+  message: {
+    accroche: string, probleme: string,
+    importance: string, cible: string, action: string
+  },
+  evaluation: {
+    indicateurs: string, methodes: string,
+    calendrier: string, lecons: string
+  },
+  journal: EntreeJournal[]  // Entrées chronologiques
+}</pre>
+    </section>
+
+    <!-- ═══ FONCTIONS CLÉS ═══ -->
+    <section id="fonctions" class="section-anchor">
+      <h2>Fonctions JavaScript clés</h2>
+
+      <table>
+        <thead><tr><th>Fonction</th><th>Rôle</th></tr></thead>
+        <tbody>
+          <tr><td><code>init()</code></td><td>Point d'entrée. Charge la DB, initialise les listeners, restaure la session précédente</td></tr>
+          <tr><td><code>newProject(name, desc)</code></td><td>Crée un projet vide avec la structure complète et un UUID</td></tr>
+          <tr><td><code>selectProject(id)</code></td><td>Charge un projet en mémoire (<code>P</code>), remplit les champs du DOM, met à jour les stats</td></tr>
+          <tr><td><code>scheduleSave()</code></td><td>Debounce de 1500ms avant sauvegarde IndexedDB</td></tr>
+          <tr><td><code>showPage(pageId)</code></td><td>Navigation entre outils (affiche/masque les sections <code>.page</code>)</td></tr>
+          <tr><td><code>updateStats()</code></td><td>Calcule les pourcentages de complétion par phase et globaux pour le dashboard</td></tr>
+          <tr><td><code>renderProjects()</code></td><td>Affiche la liste des projets en sidebar avec tri par date</td></tr>
+          <tr><td><code>doExport(format)</code></td><td>Dispatcher d'export vers les générateurs spécialisés</td></tr>
+          <tr><td><code>importJSON(file)</code></td><td>Parse et normalise un fichier JSON importé</td></tr>
+          <tr><td><code>loadTemplate(tpl)</code></td><td>Crée un projet préchargé avec données de démonstration ('arizona' ou 'ecp')</td></tr>
+          <tr><td><code>toast(message, type)</code></td><td>Affiche une notification non-bloquante (info / success / warning / error)</td></tr>
+          <tr><td><code>showHelp(key, anchorEl)</code></td><td>Affiche une bulle d'aide contextuelle pour l'outil demandé</td></tr>
+          <tr><td><code>updateMessagePreview()</code></td><td>Génère la prévisualisation du message clé en temps réel</td></tr>
+          <tr><td><code>initNetworkGraph()</code></td><td>Initialise le graphe vis.js des acteurs</td></tr>
+          <tr><td><code>updateNetworkGraph()</code></td><td>Rafraîchit le graphe après modification d'un acteur ou d'un lien</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ═══ RACCOURCIS ═══ -->
+    <section id="raccourcis" class="section-anchor">
+      <h2>Raccourcis clavier</h2>
+
+      <table>
+        <thead><tr><th>Raccourci</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td><kbd>Ctrl</kbd> + <kbd>K</kbd></td><td>Rechercher / naviguer entre les outils</td></tr>
+          <tr><td><kbd>Ctrl</kbd> + <kbd>S</kbd></td><td>Forcer la sauvegarde immédiate</td></tr>
+          <tr><td><kbd>Escape</kbd></td><td>Fermer les modales et popups</td></tr>
+        </tbody>
+      </table>
+
+      <p>La liste complète des raccourcis est accessible via le bouton <kbd>⌨️</kbd> en bas de la barre latérale (<code>#btn-shortcuts</code>).</p>
+    </section>
+
+    <!-- ═══ TEMPLATES ═══ -->
+    <section id="templates" class="section-anchor">
+      <h2>Modèles préconfigurés</h2>
+
+      <p>L'application propose deux modèles de projet entièrement préconfigurés, accessibles depuis le tableau de bord lors de la création d'un projet. Ils servent à la fois de démonstration des capacités de l'outil et de bases de travail réelles.</p>
+
+      <div class="card card-juger">
+        <h4>🛑 STOP Arizona — Défense du Modèle Social Belge</h4>
+        <p>Projet de plaidoyer contre la limitation des allocations de chômage à 24 mois instaurée par la coalition Arizona. Le modèle intègre une vision DOMINO complète, une cartographie d'acteurs (De Wever, Vandenbroucke, FGTB, Cour Constitutionnelle), des objectifs SMART avec échéances 2026, et tous les outils d'analyse pré-remplis avec les données du contexte belge.</p>
+      </div>
+
+      <div class="card card-lilac">
+        <h4>💡 Économie Contributive Provisionnée (ECP)</h4>
+        <p>Modèle le plus complet — l'intégralité des 15 outils est pré-remplie avec les données du projet ECP visant à obtenir un ruling fiscal favorable du SDA (Service des Décisions Anticipées). Inclut : analyse PESTEL du contexte Arizona, théorie du changement détaillée, cartographie de 10 acteurs clés, 5 objectifs SMART chiffrés, message de plaidoyer complet, cadre d'évaluation avec indicateurs qualitatifs et quantitatifs.</p>
+        <p style="margin-top:0.5rem; font-size:0.85rem; color:var(--text-muted);">Ce modèle constitue également une démonstration de l'utilisation de l'application pour un projet de politique sociale complexe impliquant des enjeux juridiques, institutionnels et militants.</p>
+      </div>
+    </section>
+
+    <hr class="sep">
+
+    <!-- ═══ LICENCE ═══ -->
+    <section id="licence" class="section-anchor">
+      <h2>Licence & crédits</h2>
+
+      <div class="card card-gold">
+        <h4>Creative Commons BY-NC-SA 4.0</h4>
+        <p><strong>Attribution</strong> — Vous devez créditer le collectif <code>#B!Mi</code>.<br>
+        <strong>Non Commercial</strong> — Pas d'utilisation commerciale sans accord.<br>
+        <strong>Share Alike</strong> — Les œuvres dérivées doivent être distribuées sous la même licence.</p>
+      </div>
+
+      <h3>Crédits techniques</h3>
+      <table>
+        <thead><tr><th>Composant</th><th>Licence</th></tr></thead>
+        <tbody>
+          <tr><td>vis.js Network</td><td>Apache 2.0 / MIT</td></tr>
+          <tr><td>docx.js</td><td>MIT</td></tr>
+          <tr><td>Google Fonts</td><td>SIL Open Font License</td></tr>
+        </tbody>
+      </table>
+
+      <h3>URL canonique</h3>
+      <p><code>https://yannkeep.github.io/plaidoyer/app/index.html</code></p>
+
+      <h3>Auteur</h3>
+      <p>Collectif <strong>#B!Mi</strong> — Contre-Institution Numérique Citoyenne — Wallonie-Bruxelles</p>
+    </section>
+
+    <hr class="sep">
+
+    <p style="font-family:var(--font-mono); font-size:0.7rem; color:var(--text-muted); text-align:center;">
+      Documentation générée automatiquement à partir du code source · #B!Mi Plaidoyer Citoyen v4.4 · CC BY-NC-SA 4.0
+    </p>
+
+  </main>
+</div>
+
+</body>
+</html>
